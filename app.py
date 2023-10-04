@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from elasticsearch import Elasticsearch
 import sys
 import os
@@ -33,9 +33,26 @@ def query_title(series_title):
 
 @app.route('/')
 def hello_world():
-    output = ""
+    return '''
+        <html>
+            <head>
+                <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+            </head>
+            <body>
+                <input type="text" id="searchInput" placeholder="Enter movie title..."/>
+                <button hx-get="/search" hx-vals='js:{"query": searchInput.value}' hx-target="#results" hx-trigger="click">Search</button>
+                <div id="results"></div>
+            </body>
+        </html>
+    '''
 
-    response = query_title("Star Wars")
+@app.route('/search')
+def search_title():
+    print("YOBA")
+    print(request.url)
+    query = request.args.get('query', '')
+    output = ""
+    response = query_title(query)
 
     # Print the results
     for hit in response:
@@ -44,7 +61,7 @@ def hello_world():
     return output 
 
 @app.route('/<query>')
-def search_title(query):
+def query_route(query):
     output = ""
     response = query_title(query)
 
