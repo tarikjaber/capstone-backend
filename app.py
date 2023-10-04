@@ -1,11 +1,17 @@
 from flask import Flask
 from elasticsearch import Elasticsearch
+import sys
+import os
+from dotenv import load_dotenv
 
 ES_CERT_PATH = "http_ca.crt"
 INDEX_NAME = "imdb"
 
+load_dotenv()
+ES_PASSWORD = os.getenv("ES_PASSWORD")
+
 es = Elasticsearch(['https://localhost:9200'],
-                   basic_auth=('elastic', 'n0jaL-CGa+YIznmEybmC'),
+                   basic_auth=('elastic', ES_PASSWORD),
                    ca_certs=ES_CERT_PATH,
                    verify_certs=False)
 
