@@ -39,8 +39,10 @@ def hello_world():
                 <script src="https://unpkg.com/htmx.org@1.9.6"></script>
             </head>
             <body>
-                <input type="text" id="searchInput" placeholder="Enter movie title..."/>
-                <button hx-get="/search" hx-vals='js:{"query": searchInput.value}' hx-target="#results" hx-trigger="click">Search</button>
+                <form hx-get="/search" hx-target="#results" onsubmit="return false;">
+                    <input type="text" name="query" placeholder="Enter movie title..."/>
+                    <button type="submit">Search</button>
+                </form>
                 <div id="results"></div>
             </body>
         </html>
