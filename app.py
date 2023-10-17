@@ -3,13 +3,11 @@ from elasticsearch import Elasticsearch
 import sys
 import os
 from dotenv import load_dotenv
-# test
 
 ES_CERT_PATH = "http_ca.crt"
 INDEX_NAME = "imdb"
 
 load_dotenv()
-lo
 
 ES_PASSWORD = os.getenv("ES_PASSWORD")
 
@@ -52,8 +50,6 @@ def hello_world():
 
 @app.route('/search')
 def search_title():
-    print("YOBA")
-    print(request.url)
     query = request.args.get('query', '')
     output = ""
     response = query_title(query)
