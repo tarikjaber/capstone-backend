@@ -17,3 +17,5 @@ python upload.py
 ```bash
 python app.ppy
 ```
+
+Now you can visit the site on `http://localhost:5000`.
