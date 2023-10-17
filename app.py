@@ -9,6 +9,8 @@ ES_CERT_PATH = "http_ca.crt"
 INDEX_NAME = "imdb"
 
 load_dotenv()
+lo
+
 ES_PASSWORD = os.getenv("ES_PASSWORD")
 
 es = Elasticsearch(['https://localhost:9200'],
