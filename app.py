@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch
 import sys
 import os
@@ -33,20 +33,7 @@ def query_title(series_title):
 
 @app.route('/')
 def hello_world():
-    return '''
-        <html>
-            <head>
-                <script src="https://unpkg.com/htmx.org@1.9.6"></script>
-            </head>
-            <body>
-                <form hx-get="/search" hx-target="#results" onsubmit="return false;">
-                    <input type="text" name="query" placeholder="Enter movie title..."/>
-                    <button type="submit">Search</button>
-                </form>
-                <div id="results"></div>
-            </body>
-        </html>
-    '''
+    return render_template('index.html')
 
 @app.route('/search')
 def search_title():

@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    </head>
+    <body>
+        <h1>Amogus</h1>
+        <form hx-get="/search" hx-target="#results" onsubmit="return false;">
+            <input type="text" name="query" placeholder="Enter movie title..."/>
+            <button type="submit">Search</button>
+        </form>
+        <div id="results"></div>
+    </body>
+</html>

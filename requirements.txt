@@ -1,3 +1,4 @@
 elasticsearch
 pandas
 python-dotenv
+flask
