@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <title>{% block title %}IMDb Moview Searcher{% endblock %}</title>
+    </head>
+    <body>
+        <h1>IMDb Top 1000 Movies Searcher</h1>
+        {% block content %}{% endblock %}
+    </body>
+</html>
+

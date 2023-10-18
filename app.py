@@ -45,7 +45,7 @@ def query_all_fields(field_value):
     return response['hits']['hits']
 
 @app.route('/')
-def hello_world():
+def home_page():
     return render_template('index.html')
 
 @app.route('/search')
@@ -63,7 +63,7 @@ def search_title():
     for hit in response:
         output += "<div class='result'>"
         output += "<img src='" + hit['_source']['Poster_Link'] + "'>"
-        output +="<p>" +  hit['_source']["Series_Title"] + "</p>"
+        output += "<a href='/movie/" + hit['_source']['Series_Title'] + "'>" + hit['_source']['Series_Title'] + "</a>"
         output += "</div>"
     return output 
 
@@ -77,6 +77,15 @@ def query_route(query):
         output +="<p>" +  hit['_source']["Series_Title"] + "</p>"
         print(hit['_source']["Series_Title"])
     return output 
+
+@app.route('/movie/<title>')
+def movie_details(title):
+    # For simplicity, we are searching by title. However, in a real-world scenario, a unique movie ID would be better.
+    response = query_field("Series_Title", title)
+    if response:
+        movie = response[0]['_source']
+        return render_template('movie_details.html', movie=movie)
+    return "Movie not found", 404
 
 if __name__ == '__main__':
     app.run(debug=True)
