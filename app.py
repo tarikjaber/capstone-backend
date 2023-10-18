@@ -61,7 +61,7 @@ def search_title():
             response = query_field(field, query)
 
         # Print the results
-        return render_template('index.html', response=response)
+        return render_template('index.html', response=response, selected_field=field)
     else:
         return render_template('index.html', response=[])
 

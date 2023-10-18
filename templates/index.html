@@ -6,12 +6,12 @@
 <form action="/search" method="get">
     <label for="field">Filter by field:</label>
     <select id="field" name="field">
-        <option value="all">All</option>
-        <option value="Series_Title">Title</option>
-        <option value="Genre">Genre</option>
-        <option value="Overview">Overview</option>
-        <option value="Director">Director</option>
-    </select>            
+        <option value="all" {% if selected_field == "all" %}selected{% endif %}>All</option>
+        <option value="Series_Title" {% if selected_field == "Series_Title" %}selected{% endif %}>Title</option>
+        <option value="Genre" {% if selected_field == "Genre" %}selected{% endif %}>Genre</option>
+        <option value="Overview" {% if selected_field == "Overview" %}selected{% endif %}>Overview</option>
+        <option value="Director" {% if selected_field == "Director" %}selected{% endif %}>Director</option>
+    </select>
     <input type="text" name="query" placeholder="Enter movie title..."/>
     <button class="btn btn-primary"  type="submit">Search</button>
 </form>
