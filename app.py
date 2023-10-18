@@ -18,11 +18,24 @@ es = Elasticsearch(['https://localhost:9200'],
 
 app = Flask(__name__)
 
-def query_title(series_title):
+def query_field(field_name, field_value):
     query_body = {
         "query": {
             "match": {
-                "Series_Title": series_title
+                field_name: field_value
+            }
+        }
+    }
+
+    # Execute the search query
+    response = es.search(index=INDEX_NAME, body=query_body)
+    return response['hits']['hits']
+
+def query_all_fields(field_value):
+    query_body = {
+        "query": {
+            "query_string": {
+                "query": field_value
             }
         }
     }
@@ -37,9 +50,17 @@ def hello_world():
 
 @app.route('/search')
 def search_title():
-    query = request.args.get('query', '')
+    print(request.args)
+    field = request.args.get('field')
+    query = request.args.get('query')
+    print("Field: " + field)
+    print("Query: " + query)
     output = ""
-    response = query_title(query)
+    response = []
+    if field == "all":
+        response = query_all_fields(query)
+    else:
+        response = query_field(field, query)
 
     # Print the results
     for hit in response:

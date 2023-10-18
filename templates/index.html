@@ -4,8 +4,15 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     </head>
     <body>
-        <h1>Amogus</h1>
+        <h1>IMDb Top 1000 Movies Searcher</h1>
         <form hx-get="/search" hx-target="#results" onsubmit="return false;">
+            <label for="field">Filter by field:</label>
+            <select id="field" name="field">
+                <option value="all">All</option>
+                <option value="Series_Title">Title</option>
+                <option value="Genre">Genre</option>
+                <option value="Overview">Overview</option>
+            </select>            
             <input type="text" name="query" placeholder="Enter movie title..."/>
             <button type="submit">Search</button>
         </form>
