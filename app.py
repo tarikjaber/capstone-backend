@@ -45,30 +45,25 @@ def query_all_fields(field_value):
     return response['hits']['hits']
 
 @app.route('/')
-def home_page():
-    return render_template('index.html')
+def home():
+    return render_template('index.html', response=[])
 
 @app.route('/search')
 def search_title():
     field = request.args.get('field')
     query = request.args.get('query')
-    output = ""
-    response = []
-    if field == "all":
-        response = query_all_fields(query)
-    else:
-        response = query_field(field, query)
+    if field and query:
+        output = ""
+        response = []
+        if field == "all":
+            response = query_all_fields(query)
+        else:
+            response = query_field(field, query)
 
-    # Print the results
-    for hit in response:
-        movie = hit['_source']
-        output += "<div class='result'>"
-        output += "<img src='" + movie['Poster_Link'] + "'>"
-        output += "<br>"
-        output += "<a target='_blank' href='/movie/" + hit['_id'] + "'>" + hit['_source']['Series_Title'] + "</a>"
-        output += "<p>Rating: " + movie['IMDB_Rating'] +  "</p>"
-        output += "</div>"
-    return output 
+        # Print the results
+        return render_template('index.html', response=response)
+    else:
+        return render_template('index.html', response=[])
 
 def query_by_id(movie_id):
     try:
@@ -89,7 +84,7 @@ def query_similar_movies(movie_id):
     query_body = {
         "query": {
             "more_like_this": {
-                "fields": ["Series_Title", "Genre", "Overview"],  # Fields to base the MLT query on
+                "fields": ["Series_Title", "Genre", "Overview", "Director"],  # Fields to base the MLT query on
                 "like": [
                     {
                         "_index": INDEX_NAME,
@@ -97,7 +92,7 @@ def query_similar_movies(movie_id):
                     }
                 ],
                 "min_term_freq": 1,
-                "max_query_terms": 4
+                "max_query_terms": 5
             }
         }
     }
@@ -116,7 +111,7 @@ def get_similar_movies(movie_id):
         output += "<div class='result'>"
         output += "<img src='" + movie['Poster_Link'] + "'>"
         output += "<br>"
-        output += "<a target='_blank' href='/movie/" + str(hit['_id']) + "'>" + movie['Series_Title'] + "</a>"
+        output += "<a target='_blank' href='/movie/" + hit['_id'] + "'>" + hit['_source']['Series_Title'] + "</a>"
         output += "<p>Rating: " + movie['IMDB_Rating'] +  "</p>"
         output += "</div>"
     return output

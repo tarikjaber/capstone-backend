@@ -3,7 +3,7 @@
 {% block title %} IMDb Movie Searcher {% endblock %}
 
 {% block content %}
-<form hx-get="/search" hx-target="#results" onsubmit="return false;">
+<form action="/search" method="get">
     <label for="field">Filter by field:</label>
     <select id="field" name="field">
         <option value="all">All</option>
@@ -15,5 +15,14 @@
     <input type="text" name="query" placeholder="Enter movie title..."/>
     <button class="btn btn-primary"  type="submit">Search</button>
 </form>
-<div id="results"></div>
+{% for hit in response %}
+    <div class='result'>
+        <img src="{{ hit['_source']['Poster_Link'] }}" >
+        <br>
+        <a href="/movie/{{ hit['_id'] }}">
+            {{ hit['_source']['Series_Title'] }}
+        </a>
+        <p>Rating: {{ hit['_source']['IMDB_Rating'] }} </p>
+    </div>
+{% endfor %}
 {% endblock %}
