@@ -61,31 +61,65 @@ def search_title():
 
     # Print the results
     for hit in response:
+        movie = hit['_source']
         output += "<div class='result'>"
-        output += "<img src='" + hit['_source']['Poster_Link'] + "'>"
-        output += "<a href='/movie/" + hit['_source']['Series_Title'] + "'>" + hit['_source']['Series_Title'] + "</a>"
+        output += "<img src='" + movie['Poster_Link'] + "'>"
+        output += "<br>"
+        output += "<a target='_blank' href='/movie/" + hit['_id'] + "'>" + hit['_source']['Series_Title'] + "</a>"
+        output += "<p>Rating: " + movie['IMDB_Rating'] +  "</p>"
         output += "</div>"
     return output 
 
-@app.route('/<query>')
-def query_route(query):
-    output = ""
-    response = query_title(query)
+def query_by_id(movie_id):
+    try:
+        response = es.get(index=INDEX_NAME, id=movie_id)
+        return response['_source']
+    except Exception as e:
+        print(f"Error querying by ID: {e}")
+        return None
 
-    # Print the results
-    for hit in response:
-        output +="<p>" +  hit['_source']["Series_Title"] + "</p>"
-        print(hit['_source']["Series_Title"])
-    return output 
-
-@app.route('/movie/<title>')
-def movie_details(title):
-    # For simplicity, we are searching by title. However, in a real-world scenario, a unique movie ID would be better.
-    response = query_field("Series_Title", title)
-    if response:
-        movie = response[0]['_source']
-        return render_template('movie_details.html', movie=movie)
+@app.route('/movie/<movie_id>')
+def movie_details_by_id(movie_id):
+    movie = query_by_id(movie_id)
+    if movie:
+        return render_template('movie_details.html', movie=movie, movie_id=movie_id)
     return "Movie not found", 404
+
+def query_similar_movies(movie_id):
+    query_body = {
+        "query": {
+            "more_like_this": {
+                "fields": ["Series_Title", "Genre", "Overview"],  # Fields to base the MLT query on
+                "like": [
+                    {
+                        "_index": INDEX_NAME,
+                        "_id": movie_id
+                    }
+                ],
+                "min_term_freq": 1,
+                "max_query_terms": 4
+            }
+        }
+    }
+
+    # Execute the search query
+    response = es.search(index=INDEX_NAME, body=query_body)
+    return response['hits']['hits']
+
+@app.route('/similar/<movie_id>')
+def get_similar_movies(movie_id):
+    response = query_similar_movies(movie_id)
+
+    output = ""
+    for hit in response:
+        movie = hit['_source']
+        output += "<div class='result'>"
+        output += "<img src='" + movie['Poster_Link'] + "'>"
+        output += "<br>"
+        output += "<a target='_blank' href='/movie/" + str(hit['_id']) + "'>" + movie['Series_Title'] + "</a>"
+        output += "<p>Rating: " + movie['IMDB_Rating'] +  "</p>"
+        output += "</div>"
+    return output
 
 if __name__ == '__main__':
     app.run(debug=True)
