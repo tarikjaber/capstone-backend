@@ -50,11 +50,8 @@ def hello_world():
 
 @app.route('/search')
 def search_title():
-    print(request.args)
     field = request.args.get('field')
     query = request.args.get('query')
-    print("Field: " + field)
-    print("Query: " + query)
     output = ""
     response = []
     if field == "all":
@@ -64,8 +61,10 @@ def search_title():
 
     # Print the results
     for hit in response:
+        output += "<div class='result'>"
+        output += "<img src='" + hit['_source']['Poster_Link'] + "'>"
         output +="<p>" +  hit['_source']["Series_Title"] + "</p>"
-        print(hit['_source']["Series_Title"])
+        output += "</div>"
     return output 
 
 @app.route('/<query>')

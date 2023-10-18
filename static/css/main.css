@@ -1,3 +1,17 @@
 h1 {
-    color: red;
+    color:#3876BF;
+}
+
+body {
+    padding: 20px 20%;
+}
+
+.result {
+    border: 2px solid black;
+    padding-top: 20px;
+    margin: 2px;
+    display: inline-block;
+    text-align: center;
+    width: 300px;
+    border-radius: 20px;
 }
