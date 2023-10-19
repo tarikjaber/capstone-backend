@@ -12,7 +12,7 @@
 <p><strong>Runtime:</strong> {{ movie.Runtime }}</p>
 <p><strong>Overview:</strong> {{ movie.Overview }}</p>
 <p><strong>Genre:</strong> {{ movie.Genre }}</p>
-<button hx-get="/similar/{{ movie_id }}" hx-target="#similar">Recommend Similar Movies</button>
+<button class="btn btn-primary mb-2" hx-get="/similar/{{ movie_id }}" hx-target="#similar">Recommend Similar Movies</button>
 <div id="similar"></div>
 {% endblock %}
 
