@@ -106,14 +106,16 @@ def get_similar_movies(movie_id):
     response = query_similar_movies(movie_id)
 
     output = ""
+    output += "<div class='responses'>"
     for hit in response:
         movie = hit['_source']
-        output += "<div class='result'>"
+        output += "<div class='card'>"
         output += "<img src='" + movie['Poster_Link'] + "'>"
         output += "<br>"
         output += "<a target='_blank' href='/movie/" + hit['_id'] + "'>" + hit['_source']['Series_Title'] + "</a>"
         output += "<p>Rating: " + movie['IMDB_Rating'] +  "</p>"
         output += "</div>"
+    output += "</div>"
     return output
 
 if __name__ == '__main__':

@@ -12,12 +12,12 @@
         <option value="Overview" {% if selected_field == "Overview" %}selected{% endif %}>Overview</option>
         <option value="Director" {% if selected_field == "Director" %}selected{% endif %}>Director</option>
     </select>
-    <input type="text" name="query" placeholder="Enter movie title..."/>
+    <input type="text" name="query" class="form-control" placeholder="Enter movie title..."/>
     <button class="btn btn-primary"  type="submit">Search</button>
 </form>
 <div class='responses'>
 {% for hit in response %}
-    <div class='card' style="width: 15rem; display: inline-block; margin-bottom: 1rem;">
+    <div class='card' style="width: 6rem; display: inline-block; margin-bottom: 1rem;">
         <img class='card-img-top' src="{{ hit['_source']['Poster_Link'] }}" >
         <br>
         <div class='card-body'>
