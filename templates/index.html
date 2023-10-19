@@ -16,7 +16,7 @@
     <button class="btn btn-primary"  type="submit">Search</button>
 </form>
 {% for hit in response %}
-    <div class='result'>
+    <div class='card' style="width: 18rem; display: inline-block;">
         <img src="{{ hit['_source']['Poster_Link'] }}" >
         <br>
         <a href="/movie/{{ hit['_id'] }}">
