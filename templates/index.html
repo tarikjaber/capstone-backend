@@ -16,13 +16,15 @@
     <button class="btn btn-primary"  type="submit">Search</button>
 </form>
 {% for hit in response %}
-    <div class='card' style="width: 18rem; display: inline-block;">
-        <img src="{{ hit['_source']['Poster_Link'] }}" >
+    <div class='card' style="width: 15rem; display: inline-block;">
+        <img class='card-img-top' src="{{ hit['_source']['Poster_Link'] }}" >
         <br>
-        <a href="/movie/{{ hit['_id'] }}">
-            {{ hit['_source']['Series_Title'] }}
-        </a>
-        <p>Rating: {{ hit['_source']['IMDB_Rating'] }} </p>
+        <div class='card-body'>
+            <h5 class='card-title' >
+                <a href="/movie/{{ hit['_id'] }}"> {{ hit['_source']['Series_Title'] }}</a>
+            </h5>
+            <p>Rating: {{ hit['_source']['IMDB_Rating'] }} </p>
+        </div>
     </div>
 {% endfor %}
 {% endblock %}
