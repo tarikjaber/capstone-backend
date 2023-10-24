@@ -112,8 +112,12 @@ def get_similar_movies(movie_id):
         output += "<div class='card'>"
         output += "<img src='" + movie['Poster_Link'] + "'>"
         output += "<br>"
+        output += "<div class='card-body'>"
+        output += "<h5 class='card-title' >"
         output += "<a target='_blank' href='/movie/" + hit['_id'] + "'>" + hit['_source']['Series_Title'] + "</a>"
+        output += "</h5>"
         output += "<p>Rating: " + movie['IMDB_Rating'] +  "</p>"
+        output += "</div>"
         output += "</div>"
     output += "</div>"
     return output
