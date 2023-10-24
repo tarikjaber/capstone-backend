@@ -23,3 +23,8 @@ body {
     flex-wrap: wrap;
 }
 
+
+.card {
+    width: 12rem;
+    padding: 5px;
+}
