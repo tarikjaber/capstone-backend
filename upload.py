@@ -23,7 +23,7 @@ csv_file_path = "imdb_top_1000.csv"
 upload_list = [] # list of items for upload
 
 # Load all csv data
-with open(csv_file_path, newline='') as csvfile:
+with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
     data_list = []
 
     csv_data = csv.reader(csvfile)
