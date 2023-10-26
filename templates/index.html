@@ -3,30 +3,50 @@
 {% block title %} IMDb Movie Searcher {% endblock %}
 
 {% block content %}
+
 <form action="/search" method="get">
-    <label for="field">Filter by field:</label>
-    <select id="field" name="field">
-        <option value="all" {% if selected_field == "all" %}selected{% endif %}>All</option>
-        <option value="Series_Title" {% if selected_field == "Series_Title" %}selected{% endif %}>Title</option>
-        <option value="Genre" {% if selected_field == "Genre" %}selected{% endif %}>Genre</option>
-        <option value="Overview" {% if selected_field == "Overview" %}selected{% endif %}>Overview</option>
-        <option value="Director" {% if selected_field == "Director" %}selected{% endif %}>Director</option>
-    </select>
-    <input type="text" name="query" class="form-control" placeholder="Enter movie title..."/>
-    <button class="btn btn-primary"  type="submit">Search</button>
-</form>
-<div class='responses'>
-{% for hit in response %}
-    <div class='card' style="width: 12rem; display: inline-block; margin-bottom: 1rem;">
-        <img class='card-img-top' src="{{ hit['_source']['Poster_Link'] }}" >
-        <br>
-        <div class='card-body'>
-            <h5 class='card-title' >
-                <a href="/movie/{{ hit['_id'] }}"> {{ hit['_source']['Series_Title'] }}</a>
-            </h5>
-            <p>Rating: {{ hit['_source']['IMDB_Rating'] }} </p>
-        </div>
+    
+    <div class='search-bar'>
+        <input type="text" name="query" class="search-text" placeholder="Enter movie title..."/>
+        <button class="search-btn" type="submit"> 
+            <i class="fa fa-search"></i> 
+        </button>
     </div>
-{% endfor %}
+    <div class='filter'>
+        <label for="field" class='filter-icon'>
+            <i class='fa fa-filter'></i>
+        </label>
+        <select class='filter-menu' id="field" name="field">
+            <option value="all" {% if selected_field == "all" %}selected{% endif %}>All</option>
+            <option value="Series_Title" {% if selected_field == "Series_Title" %}selected{% endif %}>Title</option>
+            <option value="Genre" {% if selected_field == "Genre" %}selected{% endif %}>Genre</option>
+            <option value="Overview" {% if selected_field == "Overview" %}selected{% endif %}>Overview</option>
+            <option value="Director" {% if selected_field == "Director" %}selected{% endif %}>Director</option>
+        </select>
+    </div>
+    
+</form>
+<div class='results' style='visibility: {{ show_results }}'>
+    <h5> Showing Results for "{{ query_string }}": </h5>
+    <div class='responses'>
+        {% for hit in response %}
+        <a href="/movie/{{ hit['_id'] }}">
+            <div class='card'>       
+                <img class='card-img-top' src="{{ hit['_source']['Poster_Link'] }}" >
+                <hr/>
+                <div class='card-body'>
+                    <h5 class='card-title' >
+                         {{ hit['_source']['Series_Title'] }}
+                    </h5>
+                    <p style='font-weight: 600; margin-bottom:0; margin-top:1.5rem;'> 
+                        <i class='fa fa-star'></i>
+                         {{ hit['_source']['IMDB_Rating'] }}  
+                    </p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% endblock %}
 </div>
-{% endblock %}
+

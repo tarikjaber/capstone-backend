@@ -46,7 +46,7 @@ def query_all_fields(field_value):
 
 @app.route('/')
 def home():
-    return render_template('index.html', response=[])
+    return render_template('index.html', response=[], query_string = "", show_results = "hidden")
 
 @app.route('/search')
 def search_title():
@@ -61,9 +61,9 @@ def search_title():
             response = query_field(field, query)
 
         # Print the results
-        return render_template('index.html', response=response, selected_field=field)
+        return render_template('index.html', response=response, selected_field=field, query_string = query, show_results = "visible")
     else:
-        return render_template('index.html', response=[])
+        return render_template('index.html', response=[], query_string = query, show_results = "visible")
 
 def query_by_id(movie_id):
     try:
@@ -109,16 +109,21 @@ def get_similar_movies(movie_id):
     output += "<div class='responses'>"
     for hit in response:
         movie = hit['_source']
+        
+        output += "<a target='_blank' href='/movie/" + hit['_id'] + "'>"    
         output += "<div class='card'>"
-        output += "<img src='" + movie['Poster_Link'] + "'>"
-        output += "<br>"
+        output += "<img class='card-img-top' src='" + movie['Poster_Link'] + "'>"
+        output += "<hr/>"
         output += "<div class='card-body'>"
         output += "<h5 class='card-title' >"
-        output += "<a target='_blank' href='/movie/" + hit['_id'] + "'>" + hit['_source']['Series_Title'] + "</a>"
+        output += movie['Series_Title'] 
         output += "</h5>"
-        output += "<p>Rating: " + movie['IMDB_Rating'] +  "</p>"
+        output += "<p style='font-weight: 600; margin-bottom:0; margin-top:1.5rem;'>"
+        output += "<i class='fa fa-star'></i>"
+        output += movie['IMDB_Rating'] +  "</p>"
         output += "</div>"
         output += "</div>"
+        output += "</a>"
     output += "</div>"
     return output
 
