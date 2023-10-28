@@ -2,29 +2,189 @@ h1 {
     color:#3876BF;
 }
 
-body {
-    padding: 20px 20%;
+body{
+    margin: 0;
 }
 
-.result {
-    border: 2px solid black;
-    padding: 20px 10px 0;
-    margin: 2px;
-    display: inline-block;
+form {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 6px;
+}
+nav > a {
+    text-decoration: none;
+    color: white;
+}
+.content {
+    padding: 20px 18%;
+    margin-top: 60px;
+}
+
+.header{
+    background-color: black;
+    color: white;
+    width: 100%;
+    padding: 0.5rem;
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    z-index: 100;
     text-align: center;
-    width: 300px;
-    border-radius: 20px;
+    text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #b3b2b2;
+    margin: 0;
+    padding: 0;
+}
+
+.results {
+    border: 1px solid rgba(0, 0, 0, 0.153);
+    padding: 20px 10px 0;
+    margin-top: 12px;
+    border-radius: 4px;
+    background-color: whitesmoke;
+    color: rgb(90, 89, 89);
+
+    -webkit-box-shadow:0 0 15px rgba(128, 128, 128, 0.34); 
+    -moz-box-shadow: 0 0 15px  rgba(128, 128, 128, 0.34); 
+    box-shadow:0 0 12px  rgba(128, 128, 128, 0.34); 
+}
+
+.results > h5 {
+    margin-left: 8px;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    width: 100%;
+    margin: 1rem auto;
+    justify-content: center;
+    
+
+}
+
+.search-text {
+    border-radius: 4px 0 0 4px;
+    height: 2.5rem;
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey !important;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+}
+
+textarea:focus, input:focus{
+    outline: 1px solid blue;
+}
+
+.search-btn{
+    border-radius: 0 4px 4px 0;
+    height: 2.5rem;
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none; 
+    cursor: pointer;
+}
+
+.filter{
+    background-color: rgb(229, 229, 229);
+    width: fit-content;
+    padding: 1px;
+    padding-left: 4px;
+    position: absolute;
+    bottom: -22px;
+    right: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.422);
+    border-radius: 4px;
+
+}
+
+.fitler-btn{
+    border-radius: 0 4px 4px 0;
+    height: 2.5rem !important;
+    float: left;
+    width: 15%;
+    padding: 20px;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-right: none; 
+}
+
+.filter-menu{
+    border: none;
+    margin-left: 0;
+    cursor: pointer;
+}
+
+.search-btn:hover{
+    background: #0b7dda;
+}
+
+form::after{
+    content: "";
+    clear: both;
+    display: table;
 }
 
 .responses {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     gap: 1rem;
     flex-wrap: wrap;
+    padding: 2rem;
+}
+
+.responses > a {
+    text-decoration: none;
+    display: flex;
 }
 
 
 .card {
-    width: 12rem;
-    padding: 5px;
+    padding: 0.5rem;
+    width: 14rem;
+    display: flex; 
+    margin-bottom: 1rem;
+    box-shadow: 6px 6px 8px rgba(102, 102, 102, 0.424);
+}
+
+.card:hover{
+    box-shadow: 6px 6px 8px rgba(102, 102, 102, 0.633);
+    outline: 1px rgba(54, 53, 53, 0.764) solid;
+}
+
+.card-img-top{
+    border-radius: 4px;
+}
+
+.card-body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    line-height: 1rem;
+    align-items: center;
+}
+
+.card-title{
+    font-weight: bold;
+    font-style: italic;
+}
+
+.fa-star {
+    color: goldenrod;
 }
