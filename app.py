@@ -91,7 +91,6 @@ def query_similar_movies(movie_id):
                         "_id": movie_id
                     }
                 ],
-                "in_term_freq": 1,
                 "max_query_terms": 5
             }
         }

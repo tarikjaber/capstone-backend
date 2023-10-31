@@ -141,7 +141,7 @@ form::after{
 
 .responses {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-evenly; */
     gap: 1rem;
     flex-wrap: wrap;
     padding: 2rem;
