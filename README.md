@@ -19,3 +19,7 @@ python app.ppy
 ```
 
 Now you can visit the site on `http://localhost:5000`.
+
+
+## TEAM AIMBD Members
+Akhil Damarla, Tarik Jaber, Lohith Maralla, Hailie Payne, Ben Pearlstein, Sumedh Bhattacharya
