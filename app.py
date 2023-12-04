@@ -135,7 +135,6 @@ def get_extra_movies(movie_id, similar):
     output += "<div class='responses'>"
     for hit in response:
         movie = hit['_source']
-        
         output += "<a target='_blank' href='/movie/" + hit['_id'] + "'>"    
         output += "<div class='card'>"
         output += "<img class='card-img-top' src='" + movie['Poster_Link'] + "'>"

@@ -18,7 +18,7 @@ es = Elasticsearch(['https://localhost:9200'],
                  verify_certs=False)
 
 # Read CSV records
-csv_file_path = "imdb_top_1000.csv"
+csv_file_path = "updated_movie_data.csv"
 
 upload_list = [] # list of items for upload
 

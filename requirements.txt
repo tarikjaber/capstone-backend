@@ -2,3 +2,5 @@ elasticsearch
 pandas
 python-dotenv
 flask
+requests
+bs4
