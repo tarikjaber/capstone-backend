@@ -12,8 +12,9 @@
 <p><strong>Runtime:</strong> {{ movie.Runtime }}</p>
 <p><strong>Overview:</strong> {{ movie.Overview }}</p>
 <p><strong>Genre:</strong> {{ movie.Genre }}</p>
-<button class="btn btn-primary mb-2" hx-get="/similar/{{ movie_id }}" hx-target="#similar">Recommend Similar Movies</button>
-<div id="similar"></div>
+<button class="btn btn-primary mb-2" hx-get="/extra/true/{{ movie_id }}" hx-target="#extra">Recommend Similar Movies</button>
+<button class="btn btn-warning mb-2" hx-get="/extra/false/{{ movie_id }}" hx-target="#extra">Show Dissimilar Movies</button>
+<div id="extra"></div>
 {% endblock %}
 
 

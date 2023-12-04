@@ -101,9 +101,35 @@ def query_similar_movies(movie_id):
     response = es.search(index=INDEX_NAME, body=query_body)
     return response['hits']['hits']
 
-@app.route('/similar/<movie_id>')
-def get_similar_movies(movie_id):
-    response = query_similar_movies(movie_id)
+def query_least_similar_movies(movie_id):
+    # First, get the details of the movie with movie_id
+    movie_details = es.get(index=INDEX_NAME, id=movie_id)['_source']
+
+    # Build a query that looks for movies with least overlap in terms of Series_Title, Genre, etc.
+    query_body = {
+        "query": {
+            "bool": {
+                "must_not": [
+                    {"match": {"Series_Title": movie_details['Series_Title']}},
+                    {"match": {"Genre": movie_details['Genre']}},
+                    {"match": {"Director": movie_details['Director']}}
+                    # You can add more fields here
+                ]
+            }
+        },
+        "size": 10  # Number of results to return
+    }
+
+    # Execute the search query
+    response = es.search(index=INDEX_NAME, body=query_body)
+    return response['hits']['hits']
+
+@app.route('/extra/<similar>/<movie_id>')
+def get_extra_movies(movie_id, similar):
+    if similar == "true":
+        response = query_similar_movies(movie_id)
+    else:
+        response = query_least_similar_movies(movie_id)
 
     output = ""
     output += "<div class='responses'>"
