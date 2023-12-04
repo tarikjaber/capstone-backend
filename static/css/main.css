@@ -188,3 +188,8 @@ form::after{
 .fa-star {
     color: goldenrod;
 }
+
+.large-img {
+    border-radius: 10px;
+    width: 300px;
+}
