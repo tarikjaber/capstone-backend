@@ -112,8 +112,8 @@ def query_least_similar_movies(movie_id):
                 "must_not": [
                     {"match": {"Series_Title": movie_details['Series_Title']}},
                     {"match": {"Genre": movie_details['Genre']}},
-                    {"match": {"Director": movie_details['Director']}}
-                    # You can add more fields here
+                    {"match": {"Director": movie_details['Director']}},
+                    {"match": {"Certificate": movie_details['Certificate']}}
                 ]
             }
         },
